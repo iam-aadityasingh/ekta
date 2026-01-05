@@ -1,6 +1,6 @@
-# Let's Contribute - Charity Event Finder 🫶
+# Ekta - Kyuki, asli maza sab ke saath aata hai! 🫶
 
-**Let's Contribute** is a Java-based web application that provides a platform for users to **discover and register** for charity or community-driven events. The platform supports user registration, login, viewing upcoming events, and registering for them.
+**Ekta** is a Java-based web application that provides a platform for users to **discover and share** charity or community-driven events.
 
 > 💡 Note: This platform only facilitates registration. It does **not handle event execution** or logistics.
 
@@ -11,9 +11,10 @@
 - 🔐 User Registration & Login
 - 📅 View upcoming charity/community events
 - ✅ Register for events
+- 📝 Create and post your own events and manage them
 - 👤 View & update user profile
-- 🗂️ Audit logging for changes and activity
-- 📊 Real-time event summary using SQL functions
+- 🗂️ Audit logging for changes and activity with SQL triggers
+- 📊 Real-time event summary using SQL functions 
 
 ---
 
@@ -76,11 +77,6 @@ Edit DatabaseConnection.java:
 private static final String JDBC_URL = "jdbc:mysql://localhost:3306/charity_event_finder";
 private static final String DB_USERNAME = "root";
 private static final String DB_PASSWORD = "your_password";
-
-![image](https://github.com/user-attachments/assets/99441f53-21a4-4913-948f-2f8c633a3c57)
-![image](https://github.com/user-attachments/assets/3f4e8cd4-f29d-4cda-a39a-467667edb5db)
-![image](https://github.com/user-attachments/assets/b426aa80-52e3-4c46-afa4-c4f732a660ef)
-![image](https://github.com/user-attachments/assets/c44a1125-581e-46ec-af02-1be4f2f225bf)
 
 ✍️ Author
 @iam-aadityasingh
