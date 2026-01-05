@@ -1,6 +1,6 @@
-# Let's Contribute - Charity Event Finder 🫶
+# Ekta - Kyuki, asli maza sab ke saath aata hai! 🫶
 
-**Let's Contribute** is a Java-based web application that provides a platform for users to **discover and register** for charity or community-driven events. The platform supports user registration, login, viewing upcoming events, and registering for them.
+**Ekta** is a Java-based web application that provides a platform for users to **discover and share** charity or community-driven events.
 
 > 💡 Note: This platform only facilitates registration. It does **not handle event execution** or logistics.
 
@@ -8,20 +8,22 @@
 
 ## 🌐 Features
 
-- 🔐 User Registration & Login
-- 📅 View upcoming charity/community events
-- ✅ Register for events
-- 👤 View & update user profile
-- 🗂️ Audit logging for changes and activity
-- 📊 Real-time event summary using SQL functions
+- 🔐 User Registration & Login: Secure authentication for participants and organizers. 
+- 📅 Event Discovery: View upcoming charity and community-driven events. 
+- ✅ Event Registration: Seamlessly sign up for volunteer opportunities. 
+- 📝 Event Management: Create, post, and manage your own charity events. 
+- 🖼️ Cloud Image Hosting: Event banners are stored securely in Microsoft Azure Blob Storage for high availability.
+- 👤 Profile Management: View and update user-specific profiles. 
+- 📊 Real-time Analytics: SQL-driven event summaries and activity audit logs.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** JSP, HTML, CSS
-- **Backend:** Java Servlets
-- **Database:** MySQL
+- **Backend:** Java Servlets (Jakarta EE)
+- **Database:** TiDB Cloud / MySQL
+- **Storage:** Azure Blob Storage (Object Storage for media)
 - **Server:** GlassFish (or any servlet container)
 - **IDE:** NetBeans / IntelliJ IDEA
 
@@ -77,10 +79,12 @@ private static final String JDBC_URL = "jdbc:mysql://localhost:3306/charity_even
 private static final String DB_USERNAME = "root";
 private static final String DB_PASSWORD = "your_password";
 
-![image](https://github.com/user-attachments/assets/99441f53-21a4-4913-948f-2f8c633a3c57)
-![image](https://github.com/user-attachments/assets/3f4e8cd4-f29d-4cda-a39a-467667edb5db)
-![image](https://github.com/user-attachments/assets/b426aa80-52e3-4c46-afa4-c4f732a660ef)
-![image](https://github.com/user-attachments/assets/c44a1125-581e-46ec-af02-1be4f2f225bf)
+Azure Blob Storage Setup:
+On the Microsoft Azure Portal create a Storage account and navigate > Data storage > Containers.
+Add new container (event-images) and set public access level: Set to Blob (anonymous read access for blobs only).
+Note: This allows your website to display the images via URL without requiring a complex authentication handshake for every visitor.
+Go to Security + networking > Access keys > Connection string and copy it.
+Security Warning: Do not push this string to GitHub. Add it to Local Environment Variables (AZURE_STORAGE_CONNECTION_STRING : copied string) or use a .env file locally.
 
 ✍️ Author
 @iam-aadityasingh
