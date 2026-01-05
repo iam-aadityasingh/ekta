@@ -1,0 +1,38 @@
+# Build and output folders
+build/
+dist/
+out/
+target/
+*.war
+*.class
+*.jar
+
+# NetBeans project files
+nbproject/private/
+nbproject/Makefile-*
+nbproject/Package-*
+nbbuild/
+nbdist/
+nbsupport/
+
+# IntelliJ / VS Code / Eclipse (if ever opened)
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment/config secrets
+.env
+
+# Database dump can be tracked in a specific folder if needed
+# Ignore actual database files

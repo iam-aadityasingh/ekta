@@ -1,0 +1,86 @@
+# Let's Contribute - Charity Event Finder 🫶
+
+**Let's Contribute** is a Java-based web application that provides a platform for users to **discover and register** for charity or community-driven events. The platform supports user registration, login, viewing upcoming events, and registering for them.
+
+> 💡 Note: This platform only facilitates registration. It does **not handle event execution** or logistics.
+
+---
+
+## 🌐 Features
+
+- 🔐 User Registration & Login
+- 📅 View upcoming charity/community events
+- ✅ Register for events
+- 👤 View & update user profile
+- 🗂️ Audit logging for changes and activity
+- 📊 Real-time event summary using SQL functions
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** JSP, HTML, CSS
+- **Backend:** Java Servlets
+- **Database:** MySQL
+- **Server:** GlassFish (or any servlet container)
+- **IDE:** NetBeans / IntelliJ IDEA
+
+---
+
+## 📦 Project Structure
+
+lets-contribute/
+│
+├── src/
+│   └── com/
+│       └── charity/
+│           ├── controller/
+│           ├── model/
+│           └── ...
+│
+├── Web Pages/
+│   ├── WEB-INF/
+│   ├── css/
+│   ├── images/
+│   ├── index.jsp
+│   ├── login.jsp
+│   └── ...
+│
+├── database/
+│   └── database.sql
+│
+├── pom.xml
+└── README.md
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/iam-aadityasingh/lets-contribute.git
+cd lets-contribute
+
+Import into your IDE
+NetBeans: Open Project
+
+Configure Database:
+Create a MySQL database named charity_event_finder
+
+Import the schema:
+mysql -u root -p charity_event_finder < db/database.sql
+
+Update DB Credentials:
+Edit DatabaseConnection.java:
+
+private static final String JDBC_URL = "jdbc:mysql://localhost:3306/charity_event_finder";
+private static final String DB_USERNAME = "root";
+private static final String DB_PASSWORD = "your_password";
+
+![image](https://github.com/user-attachments/assets/99441f53-21a4-4913-948f-2f8c633a3c57)
+![image](https://github.com/user-attachments/assets/3f4e8cd4-f29d-4cda-a39a-467667edb5db)
+![image](https://github.com/user-attachments/assets/b426aa80-52e3-4c46-afa4-c4f732a660ef)
+![image](https://github.com/user-attachments/assets/c44a1125-581e-46ec-af02-1be4f2f225bf)
+
+✍️ Author
+@iam-aadityasingh

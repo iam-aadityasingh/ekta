@@ -1,0 +1,245 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header .home-button,
+.header .logout-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header .home-button {
+    left: 20px;
+}
+
+.header .logout-button {
+    right: 20px;
+}
+
+.header .home-button:hover,
+.header .logout-button:hover {
+    color: #e0e0e0;
+}
+
+.header .home-button img,
+.header .logout-button img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Section titles */
+h2 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* User info card */
+.user-info {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.user-info p {
+    margin: 10px 0;
+}
+
+.user-info .upBtn {
+    display: inline-block;
+    padding: 8px 20px;
+    margin: 10px 5px;
+    background-color: #2196F3;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.user-info .upBtn:hover {
+    background-color: #21A6FA;
+}
+
+.user-info form {
+    display: inline-block;
+}
+
+/* No events text */
+.no-events {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin: 30px 0;
+}
+
+/* Registered/created events lists */
+.registered-events {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    box-sizing: border-box;
+}
+
+.registered-events ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.registered-events li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.registered-events li strong {
+    color: #2196F3;
+}
+
+.registered-events form {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.registered-events button {
+    padding: 8px 16px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-right: 8px;
+}
+
+.registered-events button:hover {
+    background-color: #0b7dda;
+}
+
+/* -------------------- */
+/*    RESPONSIVE PART   */
+/* -------------------- */
+
+/* Small screens (phones) */
+@media (max-width: 600px) {
+    .header {
+        padding: 30px;
+        height: auto;
+    }
+
+    .header h1 {
+        font-size: 1.4rem;
+    }
+
+    .header .home-button,
+    .header .logout-button {
+        padding: 0;
+    }
+
+    .header .home-button img,
+    .header .logout-button img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .user-info {
+        max-width: 90%;
+        margin: 16px auto;
+        padding: 16px;
+    }
+
+    .user-info .upBtn {
+        font-size: 0.95rem;
+        padding: 8px 14px;
+        margin: 6px 4px;
+    }
+
+    .registered-events {
+        width: 100%;
+        padding: 0 12px;
+    }
+
+    .registered-events li {
+        padding: 16px;
+    }
+
+    .registered-events button {
+        width: 100%;
+        margin: 6px 0 0 0;
+    }
+
+    .registered-events form {
+        display: block;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .user-info {
+        max-width: 450px;
+    }
+
+    .registered-events {
+        max-width: 95%;
+    }
+}

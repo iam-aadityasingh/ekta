@@ -1,0 +1,153 @@
+header {
+    position: relative;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* center title on larger screens */
+}
+
+#title {
+    margin: 15px 0;
+}
+
+/* Profile icon (top-right on desktop) */
+.profile-icon {
+    position: absolute;
+    top: 50%;
+    right: 45px;
+    transform: translateY(-50%);
+}
+
+.profile-icon button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 0;
+}
+
+.profile-icon button:hover {
+    color: #e0e0e0;
+}
+
+.profile-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Event list layout */
+.event-list {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Event card */
+.event-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.event-card h2 {
+    color: #2196F3;
+    margin-top: 0;
+}
+
+.event-card p {
+    margin: 10px 0;
+}
+
+.event-card strong {
+    color: #333;
+}
+
+/* View More button */
+.upBtn {
+    display: block;
+    padding: 8px 20px;
+    margin-top: 10px;
+    background-color: #2196F3;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upBtn:hover {
+    background-color: #4CAF50;
+}
+
+/* ------------- */
+/*  RESPONSIVE   */
+/* ------------- */
+
+/* Small screens (phones) */
+@media (max-width: 600px) {
+    header {
+        flex-direction: row;
+        justify-content: center;
+        padding: 10px 12px;
+    }
+
+    #title {
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+
+    .profile-icon {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-30%);
+    }
+
+    .event-list {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .event-card {
+        width: 100%;
+        max-width: 420px;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .event-list {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .event-card {
+        width: 45%; /* two cards per row approximately */
+        max-width: 360px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 900px) {
+    .event-card {
+        width: 300px;
+    }
+}
