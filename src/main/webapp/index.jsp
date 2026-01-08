@@ -26,7 +26,7 @@
     %>
     <header>
         <div class="title">
-            <h1>एकता</h1>
+            <h1>सहयोग</h1>
             <p>Kyuki, asli maza sab ke saath aata hai!</p>
         </div>
         <div class="logo">

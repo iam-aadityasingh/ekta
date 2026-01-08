@@ -71,6 +71,7 @@ Create a MySQL database named charity_event_finder
 
 Import the schema:
 mysql -u root -p charity_event_finder < db/database.sql
+Note: Additional functions, events and triggers are mentioned in database.sql, use them for higher efficiency. 
 
 Update DB Credentials:
 
