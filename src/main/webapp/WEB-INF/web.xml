@@ -64,6 +64,10 @@
         <servlet-name>PassReqForEventUpdateServlet</servlet-name>
         <servlet-class>com.charity.controller.PassReqForEventUpdateServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteProfileServlet</servlet-name>
+        <servlet-class>com.charity.controller.DeleteProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>PassReqForEventUpdateServlet</servlet-name>
         <url-pattern>/PassReqForEventUpdateServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProfileServlet</servlet-name>
+        <url-pattern>/DeleteProfileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

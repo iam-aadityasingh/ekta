@@ -28,17 +28,18 @@
             if (event != null && !event.isEmpty()) {
         %> 
         <div class="single-event-card">
-            <img src="<%= event.get(6) %>" alt="Event Image" class="event-image" />
+            <img src="<%= event.get(8) %>" alt="Event Image" class="event-image" />
 
-            <h2><%= event.get(1) %></h2>
-            <p><%= event.get(2) %></p>
-            <p><strong>Location:</strong> <%= event.get(3) %></p>
-            <p><strong>Date:</strong> <%= event.get(4) %></p>
-            <p><strong>Time:</strong> <%= event.get(5) %></p>
-            <p><strong>Registered People:</strong> <%= event.get(7) %></p>
+            <h2><%= event.get(3) %></h2>
+            <p><%= event.get(4) %></p>
+            <p><strong>Created by:</strong> <%= event.get(0) %>, <strong>email: </strong> <%= event.get(1) %></p>
+            <p><strong>Location:</strong> <%= event.get(5) %></p>
+            <p><strong>Date:</strong> <%= event.get(6) %></p>
+            <p><strong>Time:</strong> <%= event.get(7) %></p>
+            <p><strong>Registered People:</strong> <%= event.get(9) %></p>
 
             <form method="post" action="RegisterForEventServlet">
-                <input type="hidden" name="event_id" value="<%= event.get(0) %>" />
+                <input type="hidden" name="event_id" value="<%= event.get(2) %>" />
                 <button class="upBtn">Register</button>
             </form>
         </div>
@@ -46,7 +47,7 @@
         <% 
             } else { 
         %>
-        <p>No events available at the moment.</p>
+        <p>Event not available at the moment.</p>
         <% } %>
     </body>
 </html>

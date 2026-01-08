@@ -99,6 +99,7 @@ public class UpdateEventServlet extends HttpServlet {
                 
             } catch (Exception e) {
                 out.println("Azure Upload Error: " + e.getMessage());
+                out.println("<h3>Error: " + e.getMessage() + "</h3>");
                 return;
             }
         }
@@ -207,6 +208,7 @@ public class UpdateEventServlet extends HttpServlet {
 
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
+            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
     }
 

@@ -28,7 +28,7 @@ public class RegisterForEventServlet extends HttpServlet {
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             
-            String query = "SELECT id FROM users WHERE email = ?";
+            String query = "SELECT id FROM users WHERE email = ? AND is_deleted = 0";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, userEmail);
             ResultSet get_user_rs = stmt.executeQuery();
@@ -45,6 +45,14 @@ public class RegisterForEventServlet extends HttpServlet {
 
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
+                if(rs.getInt("is_deleted") == 1) {
+                    String updateRegStatusQuery = "UPDATE registrations SET is_deleted = 0 WHERE user_id = ? AND event_id = ?";
+                    PreparedStatement updateRegStatusStmt = conn.prepareStatement(updateRegStatusQuery);
+                    updateRegStatusStmt.setInt(1, curr_user_id);
+                    updateRegStatusStmt.setInt(2, eventId);
+
+                    int updateRegStatusRow = updateRegStatusStmt.executeUpdate();
+                }
                     response.sendRedirect("UserProfileServlet");
             } else {
                 String selectQuery =

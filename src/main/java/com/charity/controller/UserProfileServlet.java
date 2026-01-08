@@ -36,16 +36,16 @@ public class UserProfileServlet extends HttpServlet {
             ResultSet userRs = userStmt.executeQuery();
 
             if (userRs.next()) {
+                request.setAttribute("id", userRs.getInt("id"));
                 request.setAttribute("username", userRs.getString("username"));
                 request.setAttribute("ph_no", userRs.getLong("phone"));
-                request.setAttribute("email", userRs.getString("email"));
                 request.setAttribute("password", userRs.getString("password"));
             }
             
             String registeredEventsQuery = "SELECT e.id, e.name, e.description, e.location, e.date, e.time " +
                                  "FROM registrations r " +
                                  "JOIN events e ON r.event_id = e.id " +
-                                 "WHERE r.user_id = ? " +
+                                 "WHERE r.user_id = ? AND r.is_deleted = 0 AND e.is_deleted = 0 " +
                                  "order by e.date asc";
             PreparedStatement RegisteredEventsStmt = conn.prepareStatement(registeredEventsQuery);
             RegisteredEventsStmt.setInt(1, userRs.getInt("id"));
@@ -63,7 +63,7 @@ public class UserProfileServlet extends HttpServlet {
                 });
             }
 
-            String createdEventsQuery = "SELECT * FROM events WHERE creator_id = ?";
+            String createdEventsQuery = "SELECT * FROM events WHERE creator_id = ? AND is_deleted = 0";
             PreparedStatement CreatedEventsStmt = conn.prepareStatement(createdEventsQuery);
             CreatedEventsStmt.setInt(1,userRs.getInt("id"));
             ResultSet CreatedEventsRs = CreatedEventsStmt.executeQuery();
@@ -92,6 +92,7 @@ public class UserProfileServlet extends HttpServlet {
             request.getRequestDispatcher("userProfile.jsp").forward(request, response);
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
+            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
     }
 }

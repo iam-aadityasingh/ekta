@@ -1,13 +1,12 @@
-
 package com.charity.model;
 
 import java.sql.*;
 
 public class DatabaseConnection {
 
-    private static final String JDBC_URL = System.getenv("DB_URL");
-    private static final String DB_USERNAME = System.getenv("DB_USER");
-    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/charity_event_finder?allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "saumya";
     
     public static Connection getConnection() throws SQLException {
         try {

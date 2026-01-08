@@ -40,6 +40,10 @@
         <form action="createEvent.jsp" method="post">
             <button type="submit" class="upBtn">Create Event</button>
         </form>
+        <form action="DeleteProfileServlet" method="post">
+            <input type="hidden" name="id" value="<%= request.getAttribute("id")  %>"/>
+            <button type="submit" class="upBtn">Delete Profile</button>
+        </form>
     </div>
             
     <h2>Registered Events</h2>
@@ -56,6 +60,12 @@
                         <strong>Location:</strong> <%= event[3] %><br>
                         <strong>Date:</strong> <%= event[4] %><br>
                         <strong>Time:</strong> <%= event[5] %>
+                        
+                        <form method="post" action="EventDetailsServlet" >
+                            <input type="hidden" name="event_id" value="<%= event[0]%>" />
+                            <button class="upBtn">View</button>
+                        </form>
+                        
                         <form action="DeleteRegistrationServlet" method="get">
                             <input type="hidden" name="id" value="<%= event[0] %>"/>
                             <button type="submit">Delete</button>
@@ -82,6 +92,12 @@
                         <strong>Location:</strong> <%= event[3] %><br>
                         <strong>Date:</strong> <%= event[4] %><br>
                         <strong>Time:</strong> <%= event[5] %>
+                        
+                        <form method="post" action="EventDetailsServlet" >
+                            <input type="hidden" name="event_id" value="<%= event[0]%>" />
+                            <button class="upBtn">View</button>
+                        </form>
+                        
                         <form action="PassReqForEventUpdateServlet" method="post">
                             <input type="hidden" name="event_id" value="<%= event[0] %>"/>
                             <input type="hidden" name="event_name" value="<%= event[1] %>"/>
@@ -91,6 +107,7 @@
                             <input type="hidden" name="event_time" value="<%= event[5] %>"/>
                             <button type="submit">Update</button>
                         </form>
+
                         <form action="DeleteEventServlet" method="get">
                             <input type="hidden" name="event_id" value="<%= event[0] %>"/>
                             <button type="submit">Delete</button>

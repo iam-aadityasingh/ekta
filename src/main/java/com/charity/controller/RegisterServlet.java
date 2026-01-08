@@ -15,7 +15,9 @@ import java.sql.ResultSet;
 
 public class RegisterServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
         PrintWriter out = response.getWriter();
         String username = request.getParameter("name");
         String password = request.getParameter("password");
@@ -23,36 +25,47 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            stmt.setString(3, email);
-            stmt.setString(4, phone);
+            
+            int rowsAffected = 0;
+            String insertQuery = "" ;
+            
+            String getUserIfExsistQuery = "SELECT id FROM users WHERE email = ?";
+            PreparedStatement getUserIfExistStmt = conn.prepareStatement(getUserIfExsistQuery);
+            getUserIfExistStmt.setString(1, email);
+            ResultSet userFoundRs = getUserIfExistStmt.executeQuery();
+            
+            if(userFoundRs.next()) {
+                int user_id = userFoundRs.getInt("id");
+                String updateUserAccStateQuery = "UPDATE users SET username = ?, password = ?, phone = ?, is_deleted = 0 WHERE id = ?";
+                PreparedStatement updateUserAccStateStmt = conn.prepareStatement(updateUserAccStateQuery);
+                updateUserAccStateStmt.setString(1, username);
+                updateUserAccStateStmt.setString(2, password);
+                updateUserAccStateStmt.setString(3, phone);
+                updateUserAccStateStmt.setInt(4, user_id);
+                rowsAffected = updateUserAccStateStmt.executeUpdate();
+                insertQuery = "INSERT INTO profile_audit_log (action, user_email, old_username, new_username, old_phone, new_phone, old_password, new_password) VALUES ('Profile Status Updated', ?, ?, ?, ?, ?, ?, ?)";
+            } else {
+                String insertUserQuery = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
+                PreparedStatement insertUserStmt = conn.prepareStatement(insertUserQuery);
+                insertUserStmt.setString(1, username);
+                insertUserStmt.setString(2, password);
+                insertUserStmt.setString(3, email);
+                insertUserStmt.setString(4, phone);
+                rowsAffected = insertUserStmt.executeUpdate();   
+                insertQuery = "INSERT INTO profile_audit_log (action, user_email, old_username, new_username, old_phone, new_phone, old_password, new_password) VALUES ('Profile Created', ?, ?, ?, ?, ?, ?, ?)";
+            }
 
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                
-                String userQuery = "SELECT id FROM users WHERE email = ?";
-                PreparedStatement userStmt = conn.prepareStatement(userQuery);
-                userStmt.setString(1, email);
-                ResultSet userRs = userStmt.executeQuery();
-                userRs.next();
-                int user_id = userRs.getInt(1);
+            if (rowsAffected > 0) {
+                PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+                insertStmt.setString(1, email);                    
+                insertStmt.setString(2, username);
+                insertStmt.setString(3, username);
+                insertStmt.setString(4, phone);
+                insertStmt.setString(5, phone);
+                insertStmt.setString(6, password);
+                insertStmt.setString(7, password);
 
-                String insertQuery = "INSERT INTO profile_audit_log (action, user_email, old_username, new_username, old_phone, new_phone, old_password, new_password) VALUES ('Profile Created', ?, ?, ?, ?, ?, ?, ?)";
-                                        
-                    PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
-                    insertStmt.setString(1, email);                    
-                    insertStmt.setString(2, username);
-                    insertStmt.setString(3, username);
-                    insertStmt.setString(4, phone);
-                    insertStmt.setString(5, phone);
-                    insertStmt.setString(6, password);
-                    insertStmt.setString(7, password);
-
-                    int j = insertStmt.executeUpdate();
-                
+                int j = insertStmt.executeUpdate();
                 response.sendRedirect("login.jsp");
             } else {
                 out.println("<h3>Registration failed!</h3>");

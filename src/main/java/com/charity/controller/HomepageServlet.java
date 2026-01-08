@@ -20,7 +20,7 @@ public class HomepageServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM events");
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM events WHERE is_deleted = 0");
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
@@ -36,6 +36,7 @@ public class HomepageServlet extends HttpServlet {
             }
         } catch (Exception e) {
             out.println("Error ocured:" + e); 
+            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
 
         request.setAttribute("events", events);

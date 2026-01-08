@@ -165,6 +165,7 @@ public class CreateEventServlet extends HttpServlet {
             }
         } catch (Exception e) {
             out.println("Database Error: " + e.getMessage());
+            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
     }
 }

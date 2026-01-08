@@ -50,6 +50,29 @@ button:hover {
     background-color: #0b7dda;
 }
 
+h2 {
+    font-size: 1rem;
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+}
+
+h2 a {
+    color: #2196F3;         
+    text-decoration: none;   
+    font-weight: bold;
+}
+
+h2 a:hover,
+h2 a:focus {
+    text-decoration: underline;
+    color: #0b7dda;         
+}
+
+h2 i {
+    color: #666;
+}
+
 @media (max-width: 600px) {
     h1 {
         font-size: 1.4rem;

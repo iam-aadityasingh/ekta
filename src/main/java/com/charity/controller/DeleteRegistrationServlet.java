@@ -60,7 +60,7 @@ public class DeleteRegistrationServlet extends HttpServlet {
                 String oldImageUrl = old_event_rs.getString("image_url");
                 int oldRegisteredCount = old_event_rs.getInt("registered_count");
                 
-                String deleteSQL = "DELETE FROM registrations WHERE user_id = ? AND event_id = ?";
+                String deleteSQL = "UPDATE registrations SET is_deleted = 1 WHERE user_id = ? AND event_id = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
                     pstmt.setInt(1, curr_user_id);
                     pstmt.setInt(2, Integer.parseInt(eventId));
@@ -116,6 +116,7 @@ public class DeleteRegistrationServlet extends HttpServlet {
                 request.getRequestDispatcher("UserProfileServlet").forward(request, response); 
             } catch (Exception e) {
                 out.println("Exception: "+ e);
+                out.println("<h3>Error: " + e.getMessage() + "</h3>");
             }
             
         }

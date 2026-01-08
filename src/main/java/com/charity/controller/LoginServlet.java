@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM users WHERE email = ? AND password = ? AND is_deleted = 0";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
             stmt.setString(2, password);
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("email", email);
                 response.sendRedirect("HomepageServlet");
             } else {
-                out.println("<h3>Invalid email or password!</h3>");
+                out.println("<h3>Invalid deatils or Account dosen't exsists!</h3>");
             }
         } catch (SQLException e) {
             out.println("<h3>Error: " + e.getMessage() + "</h3>");
