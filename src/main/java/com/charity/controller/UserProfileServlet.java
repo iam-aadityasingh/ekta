@@ -30,7 +30,7 @@ public class UserProfileServlet extends HttpServlet {
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String userQuery = "SELECT * FROM users WHERE email = ?";
+            String userQuery = "SELECT id, username, password, phone FROM users WHERE email = ?";
             PreparedStatement userStmt = conn.prepareStatement(userQuery);
             userStmt.setString(1, userEmail);
             ResultSet userRs = userStmt.executeQuery();

@@ -55,6 +55,8 @@ public class RegisterForEventServlet extends HttpServlet {
                     updateRegStatusStmt.setInt(2, eventId);
 
                     updateRegStatusRow = updateRegStatusStmt.executeUpdate();
+                } else {
+                    response.sendRedirect("UserProfileServlet");
                 }
             } else {
                 String insertQuery = "INSERT INTO registrations (user_id, event_id) VALUES (?, ?)";
@@ -127,7 +129,7 @@ public class RegisterForEventServlet extends HttpServlet {
                 
                 response.sendRedirect("UserProfileServlet");
             } else {
-                out.println("<h3>Failed to register for the event!</h3>");
+                out.println("Failed to register for the event!");
             }
 
         } catch (SQLException e) {

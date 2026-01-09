@@ -28,18 +28,18 @@
             if (event != null && !event.isEmpty()) {
         %> 
         <div class="single-event-card">
-            <img src="<%= event.get(8) %>" alt="Event Image" class="event-image" />
+            <img src="<%= event.get(9) %>" alt="Event Image" class="event-image" />
 
-            <h2><%= event.get(3) %></h2>
-            <p><%= event.get(4) %></p>
-            <p><strong>Created by:</strong> <%= event.get(0) %>, <strong>email: </strong> <%= event.get(1) %></p>
-            <p><strong>Location:</strong> <%= event.get(5) %></p>
-            <p><strong>Date:</strong> <%= event.get(6) %></p>
-            <p><strong>Time:</strong> <%= event.get(7) %></p>
-            <p><strong>Registered People:</strong> <%= event.get(9) %></p>
+            <h2><%= event.get(4) %></h2>
+            <p><%= event.get(5) %></p>
+            <p><strong>Created by:</strong> <%= event.get(0) %>,<strong>phone: </strong> <%= event.get(1) %> ,<strong>email: </strong> <%= event.get(2) %></p>
+            <p><strong>Location:</strong> <%= event.get(6) %></p>
+            <p><strong>Date:</strong> <%= event.get(7) %></p>
+            <p><strong>Time:</strong> <%= event.get(8) %></p>
+            <p><strong>Registered People:</strong> <%= event.get(10) %></p>
 
             <form method="post" action="RegisterForEventServlet">
-                <input type="hidden" name="event_id" value="<%= event.get(2) %>" />
+                <input type="hidden" name="event_id" value="<%= event.get(3) %>" />
                 <button class="upBtn">Register</button>
             </form>
         </div>

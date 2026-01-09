@@ -30,13 +30,14 @@ public class EventDetailsServlet extends HttpServlet {
                 ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 PreparedStatement user_details_ps = conn.prepareStatement(
-                    "SELECT username, email FROM users WHERE id = ? AND is_deleted = 0"
+                    "SELECT username, phone, email FROM users WHERE id = ? AND is_deleted = 0"
                 );
                 user_details_ps.setInt(1, rs.getInt("creator_id"));
                 ResultSet user_details_rs = user_details_ps.executeQuery();
 
                 if (user_details_rs.next()) {
                     event.add(user_details_rs.getString("username"));
+                    event.add(user_details_rs.getString("phone"));
                     event.add(user_details_rs.getString("email"));
                 } else {
                     System.out.println("No user found for creator_id");
