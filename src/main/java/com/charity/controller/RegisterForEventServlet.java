@@ -55,8 +55,6 @@ public class RegisterForEventServlet extends HttpServlet {
                     updateRegStatusStmt.setInt(2, eventId);
 
                     updateRegStatusRow = updateRegStatusStmt.executeUpdate();
-                } else {
-                    response.sendRedirect("UserProfileServlet");
                 }
             } else {
                 String insertQuery = "INSERT INTO registrations (user_id, event_id) VALUES (?, ?)";
@@ -87,7 +85,6 @@ public class RegisterForEventServlet extends HttpServlet {
                 PreparedStatement updateStmt = conn.prepareStatement(updateCountQuery);
                 updateStmt.setInt(1, eventId);
                 updateStmt.executeUpdate();
-                response.sendRedirect("UserProfileServlet");
 
                 String insert_log_Query = "INSERT INTO registrations_audit_log (action, user_id, event_id) VALUES ('Registered for Event', ?, ?)";
                 PreparedStatement insert_log_Stmt = conn.prepareStatement(insert_log_Query);
@@ -126,12 +123,12 @@ public class RegisterForEventServlet extends HttpServlet {
                 logStmt.setInt(idx++, oldRegisteredCount);
                 logStmt.setInt(idx++, ++oldRegisteredCount); 
                 logStmt.executeUpdate();
-                
-                request.getRequestDispatcher("UserProfileServlet").forward(request, response);
             } else {
                 out.println("Failed to register for the event!");
             }
 
+            response.sendRedirect("UserProfileServlet");
+            
         } catch (SQLException e) {
             out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
