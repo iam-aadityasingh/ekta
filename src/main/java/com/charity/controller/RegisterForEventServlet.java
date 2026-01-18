@@ -127,7 +127,7 @@ public class RegisterForEventServlet extends HttpServlet {
                 logStmt.setInt(idx++, ++oldRegisteredCount); 
                 logStmt.executeUpdate();
                 
-                response.sendRedirect("UserProfileServlet");
+                request.getRequestDispatcher("UserProfileServlet").forward(request, response);
             } else {
                 out.println("Failed to register for the event!");
             }
