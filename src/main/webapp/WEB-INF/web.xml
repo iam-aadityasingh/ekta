@@ -68,6 +68,10 @@
         <servlet-name>DeleteProfileServlet</servlet-name>
         <servlet-class>com.charity.controller.DeleteProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyOtpServlet</servlet-name>
+        <servlet-class>com.charity.controller.VerifyOtpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProfileServlet</servlet-name>
         <url-pattern>/DeleteProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyOtpServlet</servlet-name>
+        <url-pattern>/VerifyOtpServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

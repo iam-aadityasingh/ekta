@@ -1,6 +1,8 @@
 package com.charity.controller;
 
 import com.charity.model.DatabaseConnection;
+import com.charity.model.gmailAuth;
+import jakarta.mail.MessagingException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,7 +13,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RegisterServlet extends HttpServlet {
     @Override
@@ -56,6 +61,13 @@ public class RegisterServlet extends HttpServlet {
             }
 
             if (rowsAffected > 0) {
+                
+                String generatedOTP = gmailAuth.sendOTP(email);
+                HttpSession session = request.getSession();
+                session.setAttribute("authOTP", generatedOTP);
+                session.setAttribute("userEmail", email); 
+                response.sendRedirect("verify_otp.jsp");
+                
                 PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
                 insertStmt.setString(1, email);                    
                 insertStmt.setString(2, username);
@@ -72,6 +84,8 @@ public class RegisterServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             out.println("<h3>Error: " + e.getMessage() + "</h3>");
+        } catch (MessagingException ex) {
+            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

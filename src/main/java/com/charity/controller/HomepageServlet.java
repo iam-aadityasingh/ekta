@@ -10,12 +10,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.charity.model.DatabaseConnection;
+import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 public class HomepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
         ArrayList<String[]> events = new ArrayList<>();
 
         PrintWriter out = response.getWriter();
