@@ -34,21 +34,27 @@ public class RegisterServlet extends HttpServlet {
             int rowsAffected = 0;
             String insertQuery = "" ;
             
-            String getUserIfExsistQuery = "SELECT id FROM users WHERE email = ?";
+            String getUserIfExsistQuery = "SELECT id, is_deleted FROM users WHERE email = ?";
             PreparedStatement getUserIfExistStmt = conn.prepareStatement(getUserIfExsistQuery);
             getUserIfExistStmt.setString(1, email);
             ResultSet userFoundRs = getUserIfExistStmt.executeQuery();
             
             if(userFoundRs.next()) {
                 int user_id = userFoundRs.getInt("id");
-                String updateUserAccStateQuery = "UPDATE users SET username = ?, password = ?, phone = ?, is_deleted = 0 WHERE id = ?";
-                PreparedStatement updateUserAccStateStmt = conn.prepareStatement(updateUserAccStateQuery);
-                updateUserAccStateStmt.setString(1, username);
-                updateUserAccStateStmt.setString(2, password);
-                updateUserAccStateStmt.setString(3, phone);
-                updateUserAccStateStmt.setInt(4, user_id);
-                rowsAffected = updateUserAccStateStmt.executeUpdate();
-                insertQuery = "INSERT INTO profile_audit_log (action, user_email, old_username, new_username, old_phone, new_phone, old_password, new_password) VALUES ('Profile Status Updated', ?, ?, ?, ?, ?, ?, ?)";
+                int user_is_deleted = userFoundRs.getInt("is_deleted");
+                
+                if( user_is_deleted == 0 ) {
+                    response.sendRedirect("login.jsp");
+                } else { 
+                    String updateUserAccStateQuery = "UPDATE users SET username = ?, password = ?, phone = ?, is_deleted = 0 WHERE id = ?";
+                    PreparedStatement updateUserAccStateStmt = conn.prepareStatement(updateUserAccStateQuery);
+                    updateUserAccStateStmt.setString(1, username);
+                    updateUserAccStateStmt.setString(2, password);
+                    updateUserAccStateStmt.setString(3, phone);
+                    updateUserAccStateStmt.setInt(4, user_id);
+                    rowsAffected = updateUserAccStateStmt.executeUpdate();
+                    insertQuery = "INSERT INTO profile_audit_log (action, user_email, old_username, new_username, old_phone, new_phone, old_password, new_password) VALUES ('Profile Status Updated', ?, ?, ?, ?, ?, ?, ?)";
+                }    
             } else {
                 String insertUserQuery = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
                 PreparedStatement insertUserStmt = conn.prepareStatement(insertUserQuery);
@@ -61,13 +67,6 @@ public class RegisterServlet extends HttpServlet {
             }
 
             if (rowsAffected > 0) {
-                
-                String generatedOTP = gmailAuth.sendOTP(email);
-                HttpSession session = request.getSession();
-                session.setAttribute("authOTP", generatedOTP);
-                session.setAttribute("userEmail", email); 
-                response.sendRedirect("verify_otp.jsp");
-                
                 PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
                 insertStmt.setString(1, email);                    
                 insertStmt.setString(2, username);
@@ -76,9 +75,14 @@ public class RegisterServlet extends HttpServlet {
                 insertStmt.setString(5, phone);
                 insertStmt.setString(6, password);
                 insertStmt.setString(7, password);
-
                 int j = insertStmt.executeUpdate();
-                response.sendRedirect("login.jsp");
+                
+                String generatedOTP = gmailAuth.sendOTP(email);
+                HttpSession session = request.getSession();
+                session.setAttribute("authOTP", generatedOTP);
+                session.setAttribute("userEmail", email); 
+                response.sendRedirect("verifyOtp.jsp");
+                
             } else {
                 out.println("<h3>Registration failed!</h3>");
             }

@@ -20,14 +20,14 @@ public class UserProfileServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        HttpSession session = request.getSession();
-        
-        String userEmail = (String) session.getAttribute("email");
 
-        if (userEmail == null) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
+        
+        String userEmail = (String) session.getAttribute("email");
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             String userQuery = "SELECT id, username, password, phone FROM users WHERE email = ?";

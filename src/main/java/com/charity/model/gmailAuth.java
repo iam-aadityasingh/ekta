@@ -8,7 +8,7 @@ import java.util.Random;
 public class gmailAuth {
 
     private static final String EMAIL_FROM = "saaditya23cs@student.mes.ac.in";
-    private static final String APP_PASSWORD = System.getenv("GMAIL_AUTH");
+    private static final String APP_PASSWORD = "jxoo hzpw auoh xvxy";
 
     public static String sendOTP(String recipientEmail) throws MessagingException {
         String otp = generateOTP(6);

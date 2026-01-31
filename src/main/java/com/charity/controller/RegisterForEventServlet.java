@@ -22,7 +22,13 @@ public class RegisterForEventServlet extends HttpServlet {
             throws ServletException, IOException {
          
         PrintWriter out = response.getWriter();
-        HttpSession session = request.getSession();
+        
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
         String userEmail = (String) session.getAttribute("email");
         int eventId = Integer.parseInt(request.getParameter("event_id"));
 

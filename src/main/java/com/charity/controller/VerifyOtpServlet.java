@@ -18,11 +18,10 @@ public class VerifyOtpServlet extends HttpServlet {
         String email = (String) session.getAttribute("userEmail");
 
         if (sessionOtp != null && sessionOtp.equals(userEnteredOtp)) {
-            // SUCCESS : Remove OTP from session so it can't be reused
             session.removeAttribute("authOTP");
+            session.removeAttribute("userEmail");
             
-            // 2. Mark user as "Logged In" by saving their email/ID in session
-            session.setAttribute("user", email); 
+            session.setAttribute("email", email); 
             response.sendRedirect("HomepageServlet");
         } else {
             request.setAttribute("error", "Invalid OTP. Please try again.");

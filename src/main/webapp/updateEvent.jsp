@@ -1,6 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+        
+    <%
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    %>
+    
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   

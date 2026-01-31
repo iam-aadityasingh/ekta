@@ -1,7 +1,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html>   
+    
+    <%
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    %>
+    
 <head>
     <title>Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    

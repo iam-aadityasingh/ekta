@@ -1,6 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    
+    <%
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    %>
+    
     <head>
         <title>Create Event</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
