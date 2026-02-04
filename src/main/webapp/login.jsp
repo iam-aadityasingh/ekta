@@ -10,6 +10,11 @@
 <body>
     <h1>Login</h1>
     <form action="LoginServlet" method="post">
+    <label for="role">Role:</label>
+    <select name="role" id="role">
+        <option value="user" selected>User</option>
+        <option value="admin">Admin</option>
+    </select>
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required><br>
         <label for="password">Password:</label>

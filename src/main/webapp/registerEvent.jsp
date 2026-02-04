@@ -1,3 +1,4 @@
+<%@page import="java.util.Objects"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,6 +9,13 @@
             response.sendRedirect("login.jsp");
             return;
         }
+        
+        if (session.getAttribute("role") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
+        String role = (String) session.getAttribute("role");
     %>
     
     <head>
@@ -46,12 +54,23 @@
             <p><strong>Time:</strong> <%= event.get(8) %></p>
             <p><strong>Registered People:</strong> <%= event.get(10) %></p>
 
+            <%
+                if(Objects.equals(role, "admin")) {
+            %>
+            <form method="post" action="ViewRegisterationForEventServlet">
+                <input type="hidden" name="event_id" value="<%= event.get(3) %>" />
+                <button class="upBtn">View Registrations</button>
+            </form>
+            <% 
+                } else { 
+            %>
             <form method="post" action="RegisterForEventServlet">
                 <input type="hidden" name="event_id" value="<%= event.get(3) %>" />
                 <button class="upBtn">Register</button>
             </form>
+            <% } %>
         </div>
-
+        
         <% 
             } else { 
         %>

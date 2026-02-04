@@ -1,0 +1,102 @@
+/* Matching the theme from ind_style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    padding: 20px;
+    background-color: #f4f4f4; /* Subtle background matching section outer areas */
+    color: #333;                 
+    line-height: 1.6;
+}
+
+/* Header style matching the main-title and section h2 */
+.header-row h1 {
+    color: #00796b; /* Matching section h2 color */
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Container for layout consistency */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto 20px auto;
+}
+
+/* Table styling aligned with the .stat card layout */
+table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matching .stat shadow */
+    border-radius: 8px;
+    overflow: hidden; /* Ensures borders follow radius */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50; /* Primary green theme */
+    color: white;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Subtle hover effect */
+}
+
+/* Button styling matching the header/footer color and nav font weight */
+.download-btn, .back-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green theme */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.download-btn:hover, .back-btn:hover {
+    background-color: #45a049; /* Slightly darker green for hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Center the back button form */
+form[action="HomepageServlet"] {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.no-data {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #00796b;
+    background: #abd6db; /* Matching section background */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+/* Responsive adjustments matching ind_style.css breakpoints */
+@media (max-width: 600px) {
+    .header-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    table, th, td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}

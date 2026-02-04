@@ -26,6 +26,7 @@ label {
     color: #333;
 }
 
+select,
 input[type="email"],
 input[type="password"] {
     width: 100%;
@@ -91,6 +92,7 @@ h2 i {
         margin-bottom: 8px;
     }
 
+    select,
     input[type="email"],
     input[type="password"] {
         margin-bottom: 12px;

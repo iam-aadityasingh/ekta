@@ -28,9 +28,9 @@ public class DeleteRegistrationServlet extends HttpServlet {
             }
 
             String userEmail = (String) session.getAttribute("email");
-            String eventId = request.getParameter("id");
-
-            if (eventId == null || eventId.isEmpty()) {
+            int eventId = request.getParameter("event_id") == null || request.getParameter("event_id").isBlank() ? 0 : Integer.parseInt(request.getParameter("event_id"));
+            
+            if (eventId == 0) {
                 response.sendRedirect("userProfile.jsp");
                 return;
             }
@@ -42,13 +42,14 @@ public class DeleteRegistrationServlet extends HttpServlet {
                 stmt.setString(1, userEmail);
                 ResultSet get_user_rs = stmt.executeQuery();
                 get_user_rs.next();
-                int curr_user_id = get_user_rs.getInt(1);
+                int userId = get_user_rs.getInt(1);
+                
                 
                 String selectQuery =
                     "SELECT name, description, date, time, location, image_url, registered_count " +
                     "FROM events WHERE id = ?";
                 PreparedStatement selectStmt = conn.prepareStatement(selectQuery);
-                selectStmt.setInt(1, Integer.parseInt(eventId));
+                selectStmt.setInt(1, eventId);
                 ResultSet old_event_rs = selectStmt.executeQuery();
                 old_event_rs.next();
 
@@ -62,20 +63,20 @@ public class DeleteRegistrationServlet extends HttpServlet {
                 
                 String deleteSQL = "UPDATE registrations SET is_deleted = 1 WHERE user_id = ? AND event_id = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
-                    pstmt.setInt(1, curr_user_id);
-                    pstmt.setInt(2, Integer.parseInt(eventId));
+                    pstmt.setInt(1, userId);
+                    pstmt.setInt(2, eventId);
                     int deletedEvent = pstmt.executeUpdate();
                     
                     if(deletedEvent > 0){
                         String updateCountQuery = "UPDATE events SET registered_count = registered_count - 1 WHERE id = ?";
                         PreparedStatement updateStmt = conn.prepareStatement(updateCountQuery);
-                        updateStmt.setInt(1, Integer.parseInt(eventId));
+                        updateStmt.setInt(1, eventId);
                         updateStmt.executeUpdate();
                         
                         String delete_log_Query = "INSERT INTO registrations_audit_log (action, user_id, event_id) VALUES ('Deleted registration for Event',?, ?)";
                         PreparedStatement delete_log_Stmt = conn.prepareStatement(delete_log_Query);
-                        delete_log_Stmt.setInt(1, curr_user_id);
-                        delete_log_Stmt.setInt(2, Integer.parseInt(eventId));
+                        delete_log_Stmt.setInt(1, userId);
+                        delete_log_Stmt.setInt(2, eventId);
                         int audit_Rows_Deleted = delete_log_Stmt.executeUpdate();
 
                         String insertLog =
@@ -93,7 +94,7 @@ public class DeleteRegistrationServlet extends HttpServlet {
 
                         PreparedStatement logStmt = conn.prepareStatement(insertLog);
                         int idx = 1;
-                        logStmt.setInt(idx++, Integer.parseInt(eventId)); 
+                        logStmt.setInt(idx++, eventId); 
                         logStmt.setString(idx++, oldName);
                         logStmt.setString(idx++, oldName);
                         logStmt.setString(idx++, oldDescription);

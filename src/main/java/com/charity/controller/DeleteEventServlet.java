@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.Objects;
 
 public class DeleteEventServlet extends HttpServlet {
 
@@ -25,8 +26,14 @@ public class DeleteEventServlet extends HttpServlet {
                 response.sendRedirect("login.jsp");
                 return;
             }
+            
+            if (session.getAttribute("role") == null){
+                response.sendRedirect("login.jsp");
+                return;
+            }
 
-            String userEmail = (String) session.getAttribute("email");
+            String userEmail = (String) session.getAttribute("email");    
+            String role = (String) session.getAttribute("role");    
             String eventIdParam = request.getParameter("event_id");
 
             if (eventIdParam == null || eventIdParam.isEmpty()) {
@@ -83,14 +90,21 @@ public class DeleteEventServlet extends HttpServlet {
                     }
                 }
 
-                String softDeleteEventSql =
-                        "UPDATE events SET is_deleted = 1 WHERE id = ? AND creator_id = ? AND is_deleted = 0";
+                String softDeleteEventSql = "";
+                PreparedStatement pstmt = conn.prepareStatement(softDeleteEventSql);
                 int deletedEvent;
-                try (PreparedStatement pstmt = conn.prepareStatement(softDeleteEventSql)) {
+                
+                if(Objects.equals(role, "admin")) {
+                    softDeleteEventSql = "UPDATE events SET is_deleted = 1 WHERE id = ? AND is_deleted = 0";
+                    pstmt.setInt(1, eventId);
+                } else {                
+                    softDeleteEventSql = "UPDATE events SET is_deleted = 1 WHERE id = ? AND creator_id = ? AND is_deleted = 0";
                     pstmt.setInt(1, eventId);
                     pstmt.setInt(2, creatorId);
-                    deletedEvent = pstmt.executeUpdate();
                 }
+                
+                deletedEvent = pstmt.executeUpdate();
+
 
                 if (deletedEvent > 0) {
 
@@ -160,8 +174,12 @@ public class DeleteEventServlet extends HttpServlet {
                 }
 
                 conn.commit();
-                request.getRequestDispatcher("UserProfileServlet").forward(request, response);
-
+                
+                if(Objects.equals(role, "admin")) {
+                    request.getRequestDispatcher("HomepageServlet").forward(request, response);
+                } else {                
+                    request.getRequestDispatcher("UserProfileServlet").forward(request, response);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 out.println("<h3>Error: " + e.getMessage() + "</h3>");

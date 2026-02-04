@@ -72,6 +72,14 @@
         <servlet-name>VerifyOtpServlet</servlet-name>
         <servlet-class>com.charity.controller.VerifyOtpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewRegisterationForEventServlet</servlet-name>
+        <servlet-class>com.charity.controller.ViewRegisterationForEventServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadEventRegistrationsServlet</servlet-name>
+        <servlet-class>com.charity.controller.DownloadEventRegistrationsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -143,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>VerifyOtpServlet</servlet-name>
         <url-pattern>/VerifyOtpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRegisterationForEventServlet</servlet-name>
+        <url-pattern>/ViewRegisterationForEventServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadEventRegistrationsServlet</servlet-name>
+        <url-pattern>/DownloadEventRegistrationsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

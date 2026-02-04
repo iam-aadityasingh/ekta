@@ -15,15 +15,17 @@ header {
     margin: 15px 0;
 }
 
-/* Profile icon (top-right on desktop) */
 .profile-icon {
     position: absolute;
-    top: 50%;
-    right: 45px;
-    transform: translateY(-50%);
+    left: 95%;
 }
 
-.profile-icon button {
+.delete-icon {
+    position: absolute;
+    left: 2%;
+}
+
+.profile-icon button, .delete-icon button {
     background: none;
     border: none;
     cursor: pointer;
@@ -32,11 +34,7 @@ header {
     padding: 0;
 }
 
-.profile-icon button:hover {
-    color: #e0e0e0;
-}
-
-.profile-icon img {
+.profile-icon img, .delete-icon img {
     width: 32px;
     height: 32px;
 }
@@ -97,11 +95,6 @@ header {
     background-color: #4CAF50;
 }
 
-/* ------------- */
-/*  RESPONSIVE   */
-/* ------------- */
-
-/* Small screens (phones) */
 @media (max-width: 600px) {
     header {
         flex-direction: row;
@@ -116,9 +109,12 @@ header {
 
     .profile-icon {
         position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-30%);
+        left: 85%;
+    }
+    
+    .delete-icon {
+        position: absolute;
+        left: 5%;
     }
 
     .event-list {

@@ -1,3 +1,4 @@
+<%@page import="java.util.Objects"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +6,10 @@
     
     <%
         if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }        
+        if (session.getAttribute("role") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
@@ -39,6 +44,16 @@
             <p><strong>Location:</strong> <%= event[3] %></p>
             <p><strong>Date:</strong> <%= event[4] %></p>
             <p><strong>Time:</strong> <%= event[5] %></p>
+
+            <%
+                if(Objects.equals(session.getAttribute("role"), "admin")) {
+            %>
+            <form method="post" action="DeleteEventServlet" >
+                <input type="hidden" name="event_id" value="<%= event[0]%>" />
+                <button class="upBtn">Delete</button>
+            </form>
+            <% } %>
+                
             <form method="post" action="EventDetailsServlet" >
                 <input type="hidden" name="event_id" value="<%= event[0]%>" />
                 <button class="upBtn">View More</button>

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.Objects;
 
 public class UserProfileServlet extends HttpServlet {
     @Override
@@ -27,7 +28,13 @@ public class UserProfileServlet extends HttpServlet {
             return;
         }
         
+        if (session.getAttribute("role") == null){
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
         String userEmail = (String) session.getAttribute("email");
+        String role = (String) session.getAttribute("role");
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             String userQuery = "SELECT id, username, password, phone FROM users WHERE email = ?";
@@ -42,27 +49,32 @@ public class UserProfileServlet extends HttpServlet {
                 request.setAttribute("password", userRs.getString("password"));
             }
             
-            String registeredEventsQuery = "SELECT e.id, e.name, e.description, e.location, e.date, e.time " +
-                                 "FROM registrations r " +
-                                 "JOIN events e ON r.event_id = e.id " +
-                                 "WHERE r.user_id = ? AND r.is_deleted = 0 AND e.is_deleted = 0 " +
-                                 "order by e.date asc";
-            PreparedStatement RegisteredEventsStmt = conn.prepareStatement(registeredEventsQuery);
-            RegisteredEventsStmt.setInt(1, userRs.getInt("id"));
-            ResultSet RegisteredEventsRs = RegisteredEventsStmt.executeQuery();
+            if(Objects.equals(role, "user")) {
+                String registeredEventsQuery = "SELECT e.id, e.name, e.description, e.location, e.date, e.time " +
+                                     "FROM registrations r " +
+                                     "JOIN events e ON r.event_id = e.id " +
+                                     "WHERE r.user_id = ? AND r.is_deleted = 0 AND e.is_deleted = 0 " +
+                                     "order by e.date asc";
+                PreparedStatement RegisteredEventsStmt = conn.prepareStatement(registeredEventsQuery);
+                RegisteredEventsStmt.setInt(1, userRs.getInt("id"));
+                ResultSet RegisteredEventsRs = RegisteredEventsStmt.executeQuery();
 
-            ArrayList<String[]> registeredEvents = new ArrayList<>();
-            while (RegisteredEventsRs.next()) {
-                registeredEvents.add(new String[]{
-                        RegisteredEventsRs.getInt("id") + "",
-                        RegisteredEventsRs.getString("name"),
-                        RegisteredEventsRs.getString("description"),
-                        RegisteredEventsRs.getString("location"),
-                        RegisteredEventsRs.getDate("date").toString(),
-                        RegisteredEventsRs.getTime("time").toString()
-                });
+                ArrayList<String[]> registeredEvents = new ArrayList<>();
+                while (RegisteredEventsRs.next()) {
+                    registeredEvents.add(new String[]{
+                            RegisteredEventsRs.getInt("id") + "",
+                            RegisteredEventsRs.getString("name"),
+                            RegisteredEventsRs.getString("description"),
+                            RegisteredEventsRs.getString("location"),
+                            RegisteredEventsRs.getDate("date").toString(),
+                            RegisteredEventsRs.getTime("time").toString()
+                    });
+                }
+                
+                int totalRegisteredEvents = registeredEvents.size();
+                request.setAttribute("totalRegisteredEvents", totalRegisteredEvents);
+                request.setAttribute("registeredEvents", registeredEvents);
             }
-
             String createdEventsQuery = "SELECT * FROM events WHERE creator_id = ? AND is_deleted = 0";
             PreparedStatement CreatedEventsStmt = conn.prepareStatement(createdEventsQuery);
             CreatedEventsStmt.setInt(1,userRs.getInt("id"));
@@ -81,14 +93,10 @@ public class UserProfileServlet extends HttpServlet {
                 });
             }
             
-            int totalRegisteredEvents = registeredEvents.size();
-            request.setAttribute("totalRegisteredEvents", totalRegisteredEvents);
-            
             int totalCreatedEvents = createdEvents.size();
             request.setAttribute("totalCreatedEvents", totalCreatedEvents);
-            
-            request.setAttribute("registeredEvents", registeredEvents);
             request.setAttribute("createdEvents", createdEvents);
+
             request.getRequestDispatcher("userProfile.jsp").forward(request, response);
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/global_style.css">
 </head>
 <body>
-    
     <% 
         Connection conn = DatabaseConnection.getConnection();
         PreparedStatement ps1 = conn.prepareStatement("SELECT COUNT(*) FROM events");
@@ -24,6 +23,7 @@
         rs1.next(); rs2.next(); rs3.next();
         int []counts = {rs1.getInt(1), rs2.getInt(1), rs3.getInt(1)};
     %>
+    
     <header>
         <div class="title">
             <h1>सहयोग</h1>
@@ -38,19 +38,25 @@
         <ul>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
+            <li><a href="about.jsp">About us</a></li>
         </ul>
     </nav>
 
     <main>
-        <section>
-            <h2>Features</h2>
-            <ul>
-                <li>Discover upcoming charity events</li>
-                <li>Manage your registrations through your profile</li>
-                <li>Create events and allow people to contribute</li>
-            </ul>
+        <section style="padding-top: 0;">
+            <h2 style="margin-bottom: 0;">𐔌՞. .՞𐦯 Our Vision</h2>
+            <p style="margin-top: 0;">Our vision is to make the world a better place by connecting people with meaningful charity events.
+                We believe that by working together, we can make a difference in the lives of those in need.
+                
+                <strong style="margin-top: 10px; display: block;">Join us in our mission to make the world a better place! 🌞</strong>
+            </p>
         </section>
-
+        
+        <section>
+            <h2></h2>
+            <p>Charity Event Finder connects users to meaningful charity events. Explore available events and register to participate in causes that matter to you.</p>
+        </section>
+        
         <section>
             <h2 class="main-title">We Have</h2>
             <div class="stats-container">
@@ -67,11 +73,6 @@
                     <p>We have covered <strong><%= counts[0] %></strong> events so far!</p>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <h2>About Us</h2>
-            <p>Charity Event Finder connects users to meaningful charity events. Explore available events and register to participate in causes that matter to you.</p>
         </section>
     </main>
 

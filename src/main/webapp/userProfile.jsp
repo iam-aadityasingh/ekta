@@ -1,3 +1,4 @@
+<%@page import="java.util.Objects"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +6,11 @@
         
     <%
         if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
+        if (session.getAttribute("role") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
@@ -33,10 +39,15 @@
     </div>
 
     <div class="user-info">
+        <p><strong>Role</strong> <%= session.getAttribute("role") %></p>
         <p><strong>Username:</strong> <%= request.getAttribute("username") %></p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone Number:</strong> <%= request.getAttribute("ph_no") %></p>
+        
+        <% if(Objects.equals(session.getAttribute("role"), "user")) {%>
         <p><strong>Total Registered Events:</strong> <%= request.getAttribute("totalRegisteredEvents") %></p>
+        <% } %>
+        
         <p><strong>Total Created Events:</strong> <%= request.getAttribute("totalCreatedEvents") %></p>        
         
         <form action="PassReqForUpdateServlet" method="post">
@@ -53,7 +64,10 @@
             <button type="submit" class="upBtn">Delete Profile</button>
         </form>
     </div>
-            
+     
+    <%
+        if(Objects.equals(session.getAttribute("role"), "user")) {
+    %>       
     <h2>Registered Events</h2>
     <div class="registered-events">
         <% 
@@ -75,7 +89,7 @@
                         </form>
                         
                         <form action="DeleteRegistrationServlet" method="get">
-                            <input type="hidden" name="id" value="<%= event[0] %>"/>
+                            <input type="hidden" name="event_id" value="<%= event[0] %>"/>
                             <button type="submit">Delete</button>
                         </form>
                     </li>
@@ -85,6 +99,10 @@
         <p class="no-events">You haven't registered for any events yet.</p>
         <% } %>
     </div>
+    
+    <%
+        }
+    %>
     
     <h2>Created Events</h2>
     <div class="registered-events">
