@@ -1,0 +1,119 @@
+/* Styling based on ind_style.css theme */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font stack */
+    background-color: #f4f4f4; /* Subtle background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+/* Container styled like the .stat cards */
+.otp-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px; /* Consistent rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matching .stat shadow */
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Heading matching the teal h2 in ind_style.css */
+h2 {
+    color: #00796b; 
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+
+.info {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.info span {
+    font-weight: bold;
+    color: #4CAF50; /* Highlighting email with primary green */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #00796b;
+}
+
+/* Input field matching section input aesthetics */
+.otp-input input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.5rem;
+    letter-spacing: 8px; /* Spacing for 6-digit code */
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.otp-input input:focus {
+    border-color: #4CAF50; /* Green focus border */
+}
+
+/* Button matching header/footer green and hover effects */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift like .stat cards */
+}
+
+/* Error and Hint messages */
+.error-msg {
+    color: #e8491d; /* Accent color for errors */
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.hint {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .otp-container {
+        width: 90%;
+        padding: 25px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
